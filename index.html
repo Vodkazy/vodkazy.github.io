@@ -20,7 +20,6 @@
             <td align="left"><p><b><font size="+4" face="STKaiti">赵 耀</font></b><br/>
                 <font size="+2">Yao Zhao</font> <font size="+2">(Chase)</font><br/>
                 Senior Algorithm Engineer<br/>
-                AI Lab<br/>
                 Department of 1688 (B2B E-commerce)<br/>
                 Alibaba Group<br/><br/><br/>
 
@@ -50,22 +49,85 @@
     <h2>Research Interests</h2>
     <p>My research interests lie at the intersection of Knowledge Graph Question Answering (KGQA), Entity Linking, Relation Linking and large language models (LLMs). Currently, I am primarily focused on AI-Search System, Retrieval-Augmented Generation (RAG) and the evaluation of LLMs.</p>
 
-    <h2>Publications</h2>
-      <li>
-        [<strong>ACL'25, Co-author</strong>] Weijie Shi, Hao Chen, <strong>Yao Zhao†</strong>, Jiaming Li, Yazhong Zhang, Qijin Chen, Jipeng Zhang, Ruiyuan Zhang, Jia Zhu, Jiajie Xu, Xiaofang Zhou. <a href="https://aclanthology.org/2025.findings-acl.188.pdf">Making RALM Robust to Irrelevant Contexts via Layer Knowledge Guided Attention</a>. In Findings of the Association for Computational Linguistics: ACL 2025.
-      </li>
-      <li>
-       [<strong>EMNLP'25</strong>] Weijie Shi, Jipeng Zhang, Yaguang Wu, Jingzhi Fang, Shibo Zhang, <strong>Yao Zhao†</strong>, Hao Chen, Ruiyuan Zhang, Yue Cui, Jia Zhu, Sirui Han, Jiajie Xu, Xiaofang Zhou. <a href=" https://arxiv.org/pdf/2504.13227">DIDS: Domain Impact-aware Data Sampling for Large Language Model Training</a>. In Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing.
-      </li>
-      <li>
-        [<strong>ACL'22</strong>] <strong>Yao Zhao†</strong>, Jiacheng Huang, Wei Hu, Qijin Chen, Xiaoxia Qiu, Chengfu Huo, Weijun Ren. <a href="https://aclanthology.org/2022.findings-acl.312.pdf">Implicit Relation Linking for Question Answering over Knowledge Graph</a>. In Findings of the Association for Computational Linguistics: ACL 2022.
-      </li>
-      <li>
-        [<strong>WWW'22</strong>] Jiacheng Huang, <strong>Yao Zhao†</strong>, Wei Hu, Zhen Ning, Qijin Chen, Xiaoxia Qiu, Chengfu Huo, Weijun Ren. <a href="https://arxiv.org/pdf/2201.08580">Trustworthy Knowledge Graph Completion Based on Multi-Sourced Noisy Data</a>. In Proceedings of the ACM Web Conference 2022. 
-      </li>
-      <li>
-        [<strong>APWeb'19</strong>] <strong>Yao Zhao†</strong>, Zhuoming Xu, Wei Hu. <a>Leveraging Context Information for Joint Entity and Relation Linking</a>. In Asia-Pacific Web (APWeb) and Web-Age Information Management (WAIM) Joint International Conference on Web and Big Data 2019.
-      </li>
+    <h2>Selected Publications</h2>
+    <!-- 提示：您可以将 paper-placeholder.svg 替换为您自己的论文截图或图表 -->
+    <div class="publication-item">
+      <div class="pub-img-container">
+        <img src="./pub_ralm.png" alt="ACL 2025 Publication" width="350px"/>
+      </div>
+      <div class="pub-info-container">
+        <div class="pub-venue">ACL 2025</div>
+        <div class="pub-title">Making RALM Robust to Irrelevant Contexts via Layer Knowledge Guided Attention</div>
+        <div class="pub-authors">Weijie Shi, Hao Chen, Jiaming Li, <strong>Yao Zhao†(Co-author)</strong>, Yazhong Zhang, Qijin Chen, Jipeng Zhang, Ruiyuan Zhang, Jia Zhu, Jiajie Xu, Xiaofang Zhou</div>
+        <div class="pub-abstract">Retrieval-augmented language models (RALMs) alleviate LLMs’ factual hallucination and knowledge obsolescence, but irrelevant retrieved passages impair performance. We propose a layer-knowledge guided attention method that leverages LLMs’ layer-wise knowledge to assess passage relevance and enable selective fusion, outperforming existing approaches on RALM benchmarks.</div>
+        <div class="pub-links">
+          <a class="pub-link-btn" href="https://aclanthology.org/2025.findings-acl.188.pdf">Paper</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="publication-item">
+      <div class="pub-img-container">
+        <img src="./pub_dids.png" alt="EMNLP 2025 Publication" width="350px"/>
+      </div>
+      <div class="pub-info-container">
+        <div class="pub-venue">EMNLP 2025</div>
+        <div class="pub-title">DIDS: Domain Impact-aware Data Sampling for Large Language Model Training</div>
+        <div class="pub-authors">Weijie Shi, Jipeng Zhang, Yaguang Wu, Jingzhi Fang, Shibo Zhang, <strong>Yao Zhao†</strong>, Hao Chen, Ruiyuan Zhang, Yue Cui, Jia Zhu, Sirui Han, Jiajie Xu, Xiaofang Zhou</div>
+        <div class="pub-abstract">We propose DIDS, a domain impact-aware sampling method for multi-domain LLM training. It uses gradient clustering (with proxy models/dimensionality reduction) to ensure intra-domain consistency and a FIM-guided metric to quantify domain impact. By combining impact assessment, loss trajectories and marginal return effects, DIDS achieves 3.4% higher average performance with comparable training efficiency.</div>
+        <div class="pub-links">
+          <a class="pub-link-btn" href="https://arxiv.org/pdf/2504.13227">Paper</a>
+          <a class="pub-link-btn" href="https://github.com/shiweijiezero/DIDS">Code</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="publication-item">
+      <div class="pub-img-container">
+        <img src="./pub_imrl.png" alt="ACL 2022 Publication" width="350px"/>
+      </div>
+      <div class="pub-info-container">
+        <div class="pub-venue">ACL 2022</div>
+        <div class="pub-title">Implicit Relation Linking for Question Answering over Knowledge Graph</div>
+        <div class="pub-authors"><strong>Yao Zhao†</strong>, Jiacheng Huang, Wei Hu, Qijin Chen, Xiaoxia Qiu, Chengfu Huo, Weijun Ren</div>
+        <div class="pub-abstract">Relation linking (RL), a key module in KBQA, maps natural language (NL) relations to knowledge graph (KG) relations, but struggles with implicit NL relations and KG incompleteness. We propose ImRL, which links NL relation phrases to KG relation paths via a path ranking model that aligns textual and structural embeddings, plus a gated attention mechanism incorporating external paraphrase knowledge. Experiments on multiple datasets demonstrate ImRL’s superiority over state-of-the-art methods, especially for implicit RL.</div>
+        <div class="pub-links">
+          <a class="pub-link-btn" href="https://aclanthology.org/2022.findings-acl.312.pdf">Paper</a>
+          <a class="pub-link-btn" href="https://openreview.net/attachment?id=FbPpEXW41i8&name=data">Code&Data</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="publication-item">
+      <div class="pub-img-container">
+        <img src="./pub_tkgc.png" alt="WWW 2022 Publication" width="350px"/>
+      </div>
+      <div class="pub-info-container">
+        <div class="pub-venue">WWW 2022</div>
+        <div class="pub-title">Trustworthy Knowledge Graph Completion Based on Multi-Sourced Noisy Data</div>
+        <div class="pub-authors">Jiacheng Huang, <strong>Yao Zhao†</strong>, Wei Hu, Zhen Ning, Qijin Chen, Xiaoxia Qiu, Chengfu Huo, Weijun Ren</div>
+        <div class="pub-abstract">We propose a trustworthy method for open knowledge graph (KG) completion that mitigates web data noise. It combines a holistic-scoring graph neural network, value alignment networks, and a source-quality-aware truth inference model with semi-supervised learning, outperforming state-of-the-art methods in both missing fact completion and new fact discovery.</div>
+        <div class="pub-links">
+          <a class="pub-link-btn" href="https://arxiv.org/pdf/2201.08580">Paper</a>
+          <a class="pub-link-btn" href="https://github.com/nju-websoft/TKGC">Code</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="publication-item">
+      <div class="pub-img-container">
+        <img src="./pub_eearl.png" alt="APWeb 2019 Publication" width="350px"/>
+      </div>
+      <div class="pub-info-container">
+        <div class="pub-venue">APWeb 2019</div>
+        <div class="pub-title">Leveraging Context Information for Joint Entity and Relation Linking</div>
+        <div class="pub-authors"><strong>Yao Zhao†</strong>, Zhuoming Xu, Wei Hu</div>
+        <div class="pub-abstract">We propose EEARL, an extended entity-relation linker for KBQA systems, which leverages full context (including non-mention expressions like wh-words ignored by existing methods) via character- and word-level LSTMs to extract mention context and entity/relation attribute features, then re-scores candidates by vector similarity. Experiments on LC-QuAD and QALD show EEARL outperforms comparative approaches in both entity and relation linking accuracy.</div>
+        <div class="pub-links">
+          <a class="pub-link-btn" href="https://link.springer.com/chapter/10.1007/978-3-030-33982-1_3">Paper</a>
+        </div>
+      </div>
+    </div>
 
 
     <h2>Awards & Honors</h2>
