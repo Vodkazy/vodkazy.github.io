@@ -1,5 +1,44 @@
 /* Default css file for jemdoc. */
 
+/* ===== 设计变量（配色 / 字体栈，均为本地字体，不联网加载）===== */
+:root {
+  --paper: #ffffff;
+  --surround: #f0f0f0;
+  --tint: #f5f9fd;
+  --ink: #1e2430;
+  --ink-soft: #4e5561;
+  --ink-faint: #858d99;
+  /* 浅蓝：大字号标题与装饰线 */
+  --accent: #527bbd;
+  /* 深一档：小字号文本、以及需要承载白字的底色（保证对比度）*/
+  --accent-deep: #3f6ba6;
+  --accent-soft: #6d95c8;
+  --link: #3a6fae;
+  --link-hover: #24507f;
+  /* 公告型条目的醒目色 */
+  --alert: #f3210a;
+  --alert-deep: #c12d20;
+  --rule: #dce3ec;
+  --rule-soft: #eaeff5;
+
+  /* 滚动容器限高。CSS 无法按「子元素条数」求高度，max-height 只能是
+     绝对值，所以下面两个值是按行高/条目高度推算的，直接改这里即可微调 */
+  /* News 约 10 条：单行条目 = line-height 1.5em + margin-bottom 0.5em = 2em，
+     实际内容约 1.4 行/条 → 10 × 1.4 × 1.5em + 10 × 0.5em = 26em，再加面板上下 padding 2em */
+  --news-max-h: 28em;
+  /* Publications 约 6 篇：每篇 = max(图片区 min-height 200px, 文字区)
+     + padding 44px + border 1px + margin 6.4px，按当前摘要长度推算约 369~439px/篇 */
+  --pub-max-h: 3000px;
+
+  --font-serif: Georgia, "Iowan Old Style", Palatino, "Palatino Linotype",
+    "Times New Roman", "Songti SC", "Source Han Serif SC", serif;
+  --font-kai: "STKaiti", "Kaiti SC", KaiTi, STSong, serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 table#tlayout {
     border: none;
     border-collapse: separate;
@@ -7,11 +46,18 @@ table#tlayout {
 }
 
 body {
-    background: white;
-    font-family: Georgia, serif;
-    padding-bottom: 8px;
+    background: var(--surround);
+    color: var(--ink);
+    font-family: var(--font-serif);
+    font-size: 16px;
+    line-height: 1.5;
+    padding-bottom: 0;
     margin: 0;
     text-align: center;
+}
+
+::selection {
+    background: rgba(82, 123, 189, 0.20);
 }
 
 #layout-menu {
@@ -32,16 +78,18 @@ body {
     vertical-align: top;
 }
 
+/* 一页纸：白色内容片浮在中性灰底上 */
 #layout-content {
-    padding-top: 0.0em;
-    padding-left: 1.0em;
-    padding-right: 1.0em;
+    padding: 44px 54px 76px;
     border: none;
-    background: white;
+    background: var(--paper);
     text-align: left;
     vertical-align: top;
-    width:1000px;
-    margin: auto;
+    width: 100%;
+    max-width: 1000px;
+    margin: 28px auto 44px;
+    box-shadow: 0 1px 3px rgba(30, 36, 48, 0.07),
+                0 14px 34px rgba(30, 36, 48, 0.09);
 }
 
 #layout-menu a {
@@ -59,12 +107,23 @@ pre, tt {
 }
 
 a, a > tt {
-    color: #224b8d;
-    text-decoration: none;
+    color: var(--link);
+    text-decoration: underline;
+    text-decoration-color: rgba(58, 111, 174, 0.36);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    transition: color 0.18s ease, text-decoration-color 0.18s ease;
 }
 
 a:hover {
-    border-bottom: 1px gray dotted;
+    color: var(--link-hover);
+    text-decoration-color: var(--link-hover);
+}
+
+a:focus-visible {
+    outline: 2px solid var(--accent-soft);
+    outline-offset: 2px;
+    border-radius: 2px;
 }
 
 #layout-menu a.current:link, #layout-menu a.current:visited {
@@ -93,9 +152,9 @@ div.menu-item {
 }
 
 div#toptitle {
-    padding-bottom: 0.2em;
-    margin-bottom: 1.5em;
-    border-bottom: 3px double gray;
+    padding-bottom: 0.5em;
+    margin-bottom: 1.6em;
+    border-bottom: 1px solid var(--rule);
 }
 
 /* Reduce space if we begin the page with a title. */
@@ -123,21 +182,34 @@ h1, h2, h3 {
     margin-top: 0.7em;
     margin-bottom: 0.3em;
     padding-bottom: 0.2em;
-    line-height: 1.0;
+    line-height: 1.25;
     padding-top: 0.5em;
-    border-bottom: 1px solid #aaaaaa;
-    font-family: Georgia, serif;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--font-serif);
+    letter-spacing: 0.005em;
 }
 
 h1 {
-    color: #800000;
-    font-size: 165%;
+    color: var(--accent);
+    font-size: 1.65rem;
 }
 
 h2 {
-    color: #800000;
-    padding-top: 0.8em;
-    font-size: 125%;
+    position: relative;
+    color: var(--accent);
+    padding-top: 1.5em;
+    font-size: 1.32rem;
+}
+
+/* 每个二级标题下的短强调线 */
+h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 2.8rem;
+    height: 2px;
+    background: var(--accent);
 }
 
 h2 + h3 {
@@ -145,16 +217,16 @@ h2 + h3 {
 }
 
 h3 {
-    color: #000000;
-    font-size: 110%;
+    color: var(--ink);
+    font-size: 1.08rem;
     border-bottom: none;
 }
 
 p {
     margin-top: 0.0em;
-    margin-bottom: 0.8em;
+    margin-bottom: 0.9em;
     padding: 0;
-    line-height: 1.3;
+    line-height: 1.45;
 }
 
 pre {
@@ -323,8 +395,11 @@ div#toptitle h1, #layout-content div#toptitle h1 {
     margin-bottom: 0.0em;
     padding-bottom: 0.1em;
     padding-top: 0;
-    margin-top: 0.5em;
+    margin-top: 0.6em;
     border-bottom: none;
+    font-size: 1.75rem;
+    letter-spacing: 0.01em;
+    color: var(--ink);
 }
 
 img.eq {
@@ -372,50 +447,208 @@ table.imgtable, table.imgtable td {
     text-align: left;
 }
 
-li {
-  margin-bottom: 1rem; /* 可根据需要调整数值，如 1rem, 20px, 2em 等 */
+/* ===== 页面顶部个人信息区 ===== */
+table.imgtable {
+    width: 100%;
+    margin-bottom: 1.4em;
 }
 
-li:not(:last-child) {
-  margin-bottom: 1rem;
+table.imgtable > tbody > tr > td {
+    padding: 0;
+    vertical-align: top;
 }
 
-/* 样式用于出版物项目 */
+/* 人像列与 logo 列用百分比写死：
+   1) 不写的话 table auto 布局会把富余宽度摊给人像列，在人像与文字间拉出空白
+   2) 写固定 px 则在 769–1000px 视口下三列总宽超出可用宽度而溢出 */
+table.imgtable > tbody > tr > td:first-child {
+    width: 34%;
+}
+
+/* 人像 */
+img.portrait {
+    width: 100%;
+    max-width: 310px;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid var(--rule);
+    box-shadow: 0 6px 20px rgba(23, 43, 69, 0.12);
+}
+
+td.profile-text {
+    padding-left: 34px !important;
+    padding-right: 30px !important;
+}
+
+.chinese-name {
+    display: block;
+    font-family: var(--font-kai);
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1.15;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+}
+
+.english-name {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    color: var(--ink-soft);
+    margin-top: 0.15em;
+    letter-spacing: 0.01em;
+}
+
+.english-name .alias {
+    font-style: italic;
+    color: var(--ink-faint);
+}
+
+.job-title {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 1.08rem;
+    color: var(--accent-deep);
+    font-weight: bold;
+    margin-top: 0.9em;
+}
+
+.affiliation {
+    display: block;
+    color: var(--ink-soft);
+    line-height: 1.55;
+}
+
+/* 联系方式：标签对齐的两列观感 */
+.contact-info {
+    margin-top: 1.1em;
+    padding-top: 0.9em;
+    border-top: 1px solid var(--rule);
+    font-size: 0.94rem;
+    line-height: 1.65;
+}
+
+.contact-item {
+    color: var(--ink-soft);
+}
+
+.contact-label {
+    display: inline-block;
+    min-width: 6.6em;
+    color: var(--ink-faint);
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+/* 单位 logo
+   注：必须带上 table.imgtable 前缀，否则会被上方
+   `table.imgtable td { text-align: left }` （特异性更高）覆盖 */
+table.imgtable td.logo-cell {
+    width: 21%;
+    text-align: center;
+    /* 兜底：若两 logo 总高仍与人像/文字列有落差，让余量上下平分，
+       而不是全部堆在底部（特异性 (0,2,2) 压过上方的 vertical-align: top）*/
+    vertical-align: middle;
+}
+
+/* 间距用百分比（相对 logo 列宽），才能和下方按百分比缩放的 logo 同步，
+   否则视口变窄时 logo 缩小、间距不变，logo 列会反过来比人像高 */
+td.logo-cell > p {
+    margin: 0 0 13%;
+}
+
+td.logo-cell > p:last-child {
+    margin-bottom: 0;
+}
+
+td.logo-cell a {
+    text-decoration: none;
+}
+
+/* height 一律交给 auto 按真实宽高比算，避免像原先 ali.svg 那样
+   被 height 属性纵向拉伸；显示尺寸改由下面两条百分比宽度控制 */
+td.logo-cell img {
+    max-width: 100%;
+    height: auto;
+    opacity: 0.86;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* 百分比宽度让 logo 随列宽缩放，与同样按百分比缩放的人像保持等高：
+   ali.svg 真实 122×79，nju.jpg 真实 336×421 */
+td.logo-cell img.logo-ali {
+    width: 92%;
+}
+
+td.logo-cell img.logo-nju {
+    width: 66%;
+}
+
+td.logo-cell a:hover img {
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
+/* 列表默认间距交由 .content-list 控制 */
+
+/* ===== 论文条目 ===== */
 .publication-item {
   display: flex;
-  align-items: flex-start;
-  margin-bottom: 1.5rem;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
+  /* 必须是 stretch（不能用 flex-start）：图片列高度要被拉伸到与文字列等高，
+     下方 .pub-img-container 的 align-items: center 才能真正把图纵向居中；
+     图高 134~227px 而文字区 318~388px，flex-start 下图会明显偏上 */
+  align-items: stretch;
+  margin-bottom: 0.4rem;
+  padding: 22px 14px;
+  border-bottom: 1px solid var(--rule-soft);
+  border-radius: 5px;
+  transition: background-color 0.22s ease;
+}
+
+.publication-item:hover {
+  background-color: var(--tint);
+}
+
+.publication-item:last-child {
+  border-bottom: none;
 }
 
 .pub-img-container {
-  flex: 0 0 400px;
-  padding-right: 20px;
+  flex: 0 0 380px;
+  padding-right: 26px;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 200px; /* 确保容器有足够的高度来体现垂直居中 */
+  min-height: 200px; /* 兜底：文字区比图还短时仍保留居中空间 */
 }
 
 .pub-info-container {
   flex: 1;
   text-align: left;
   padding-left: 0;
+  min-width: 0;
 }
 
 .publication-item img {
   max-width: 100%;
   height: auto;
   display: block;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 5px;
+  border: 1px solid var(--rule);
+  box-shadow: 0 3px 12px rgba(23, 43, 69, 0.09);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.publication-item:hover img {
+  box-shadow: 0 8px 24px rgba(23, 43, 69, 0.16);
+  transform: translateY(-2px);
 }
 
 /* 正文关键词高亮 */
 .hl {
-  color: #800000;
+  color: var(--accent-deep);
   font-weight: bold;
 }
 
@@ -430,39 +663,124 @@ ul.content-list li {
   line-height: 1.5;
 }
 
+ul.content-list li::marker {
+  color: var(--accent-soft);
+}
+
 /* 条目会折行的列表，项间留白更大 */
 ul.content-list.spaced li {
   margin-bottom: 0.5em;
 }
 
+/* 条目开头的年份 / 角色标题 */
+.entry-key {
+  color: var(--accent-deep);
+}
+
+/* 内容超出限高后转为内部纵向滚动 */
+.scroll-box {
+  overflow-y: auto;
+  padding-right: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: #c6d2e0 transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-box::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll-box::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-box::-webkit-scrollbar-thumb {
+  background: #c6d2e0;
+  border-radius: 4px;
+}
+
+.scroll-box::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-soft);
+}
+
+.pub-scroll {
+  max-height: var(--pub-max-h);
+}
+
+/* News：只保留左侧强调竖条，不画成封闭边框
+   margin-left 归零 + padding-left 2.7em：让竖条对齐正文左边缘，
+   同时保持项目符号与其他列表（1.2em + 1.5em）相同的缩进
+   不写 border-radius：只剩一条直线时圆角会把竖条两端削细 */
+ul.content-list.news-panel {
+  max-height: var(--news-max-h);
+  margin-left: 0;
+  padding: 16px 18px 16px 2.7em;
+  border-left: 3px solid var(--accent);
+}
+
+/* News 中需要突出的公告条目：整条转红。
+   内部的 .entry-key / .hl / a 各自带蓝色，必须显式覆盖，
+   否则只有裸文字会变红 */
+li.notice,
+li.notice .entry-key,
+li.notice .hl,
+li.notice a {
+  color: var(--alert);
+}
+
+li.notice a {
+  text-decoration-color: rgba(192, 57, 43, 0.42);
+}
+
+li.notice a:hover {
+  color: var(--alert-deep);
+  text-decoration-color: var(--alert-deep);
+}
+
 /* 论文信息样式 */
 .pub-title {
+  font-family: var(--font-serif);
   font-weight: bold;
-  font-size: 1.1em;
-  margin-bottom: 0.5em;
-  color: #333;
+  font-size: 1.12rem;
+  line-height: 1.3;
+  margin-bottom: 0.35em;
+  color: var(--ink);
+  transition: color 0.22s ease;
+}
+
+.publication-item:hover .pub-title {
+  color: var(--accent-deep);
 }
 
 .pub-authors {
-  color: #666;
+  color: var(--ink-soft);
   font-style: italic;
+  line-height: 1.45;
   margin-bottom: 0.5em;
+}
+
+.pub-authors strong {
+  color: var(--ink);
+  font-weight: bold;
 }
 
 .pub-venue {
   display: inline-block;
-  background-color: #4a7bb4;
+  background-color: var(--accent-deep);
   color: white;
-  padding: 2px 6px;
+  padding: 2px 9px;
   border-radius: 3px;
-  font-size: 0.9em;
-  margin-bottom: 0.8em;
+  font-size: 0.74rem;
+  font-weight: bold;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 0.7em;
 }
 
 .pub-abstract {
-  margin: 0.8em 0;
-  color: #555;
-  line-height: 1.4;
+  margin: 0.7em 0;
+  color: var(--ink-soft);
+  line-height: 1.45;
 }
 
 .pub-links {
@@ -471,153 +789,27 @@ ul.content-list.spaced li {
 
 .pub-link-btn {
   display: inline-block;
-  background-color: #f0f0f0;
-  border: 1px solid #ddd;
-  color: #333;
-  padding: 4px 10px;
+  background-color: transparent;
+  border: 1px solid #c3cfdc;
+  color: var(--ink-soft);
+  padding: 3px 11px;
   text-decoration: none;
-  border-radius: 3px;
-  font-size: 0.9em;
-  margin-right: 8px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  margin-right: 7px;
+  transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
 }
 
 .pub-link-btn:hover {
-  background-color: #e0e0e0;
+  background-color: var(--accent-deep);
+  border-color: var(--accent-deep);
+  color: #fff;
   text-decoration: none;
-}
-
-/* 通用卡片样式 */
-.section-card {
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 1.5em;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  transition: box-shadow 0.3s ease;
-}
-
-.section-card:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-}
-
-.awards-list, .service-list {
-  margin-top: 1em;
-  padding-left: 1.5em;
-}
-
-.awards-list li, .service-list li {
-  margin-bottom: 0.5em;
-  line-height: 1.4;
-}
-
-/* 个人信息区域样式 */
-.profile-section {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  margin-bottom: 2em;
-  padding: 15px;
-  background-color: #fafafa;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.profile-image-container {
-  flex: 0 0 auto;
-}
-
-.profile-image {
-  width: 200px;
-  height: 200px;
-  border-radius: 8px;
-  object-fit: cover;
-  border: 3px solid #eaeaea;
-}
-
-.profile-info-container {
-  flex: 1;
-  min-width: 0; /* Allow it to shrink below content size */
-}
-
-.profile-info-container h1 {
-  margin-top: 0;
-  margin-bottom: 1em;
-  color: #333;
-}
-
-.chinese-name {
-  font-size: 1.8em;
-  font-weight: bold;
-  font-family: STKaiti, serif;
-  display: block;
-}
-
-.english-name {
-  font-size: 1.3em;
-  font-weight: normal;
-  color: #555;
-  display: block;
-}
-
-.position-info {
-  margin-bottom: 1.5em;
-}
-
-.job-title {
-  font-size: 1.2em;
-  font-weight: bold;
-  color: #444;
-  margin-bottom: 0.3em;
-}
-
-.organization, .company {
-  color: #666;
-  margin-bottom: 0.2em;
-}
-
-.contact-info {
-  margin-top: 1em;
-}
-
-.contact-item {
-  margin-bottom: 0.5em;
-  line-height: 1.4;
-}
-
-.affiliation-logos {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  align-items: center;
-}
-
-.logo-item {
-  text-align: center;
-}
-
-.logo-item img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
 }
 
 /* 响应式设计 */
 @media screen and (max-width: 768px) {
-  .profile-section {
-    flex-direction: column;
-  }
-  
-  .profile-image {
-    width: 150px;
-    height: 150px;
-  }
-  
-  .affiliation-logos {
-    flex-direction: row;
-    justify-content: center;
-    gap: 15px;
-  }
-  
   .publication-item {
     flex-direction: column;
   }
@@ -650,5 +842,105 @@ ul.content-list.spaced li {
     max-width: 100%;
     width: auto !important;
     height: auto;
+  }
+
+  /* 顶部个人信息区：窄屏下由三列表格改为纵向堆叠
+     同时取消“浮片”的外边距，让纸面撑满屏宽 */
+  #layout-content {
+    padding: 24px 20px 52px;
+    margin: 0 auto;
+    box-shadow: none;
+  }
+
+  ul.content-list.news-panel {
+    padding: 14px 12px 14px 2.4em;
+  }
+
+  table.imgtable,
+  table.imgtable > tbody,
+  table.imgtable > tbody > tr,
+  table.imgtable > tbody > tr > td {
+    display: block;
+    width: 100% !important;
+  }
+
+  table.imgtable img.portrait {
+    width: 210px !important;
+    height: auto !important;
+  }
+
+  td.profile-text {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 18px !important;
+  }
+
+  table.imgtable td.logo-cell {
+    text-align: left;
+    padding-top: 22px !important;
+  }
+
+  /* logo 由纵向排列改为横向并排 */
+  td.logo-cell > p {
+    display: inline-block;
+    margin: 0 26px 0 0;
+    text-align: left !important;
+  }
+
+  /* 窄屏下 <p> 是 inline-block（宽度由内容决定），
+     百分比宽度在这种收缩容器里无法稳定解析，改回固定值 */
+  td.logo-cell img.logo-ali {
+    width: 132px;
+  }
+
+  td.logo-cell img.logo-nju {
+    width: 94px;
+  }
+
+  td.logo-cell br {
+    display: none;
+  }
+
+  .chinese-name {
+    font-size: 2.1rem;
+  }
+
+  div#toptitle h1, #layout-content div#toptitle h1 {
+    font-size: 1.45rem;
+  }
+
+  .contact-label {
+    min-width: 0;
+    margin-right: 0.5em;
+  }
+}
+
+/* 打印：解除滚动容器限高（否则超出部分会丢失），
+   并去掉屏幕专用的底色、投影与悬停效果 */
+@media print {
+  body {
+    background: #fff;
+  }
+
+  #layout-content {
+    padding: 0;
+    margin: 0;
+    max-width: none;
+    box-shadow: none;
+  }
+
+  .scroll-box,
+  ul.content-list.news-panel {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  ul.content-list.news-panel {
+    border: none;
+    padding-left: 1.6em;
+  }
+
+  .publication-item:hover {
+    background: none;
   }
 }
