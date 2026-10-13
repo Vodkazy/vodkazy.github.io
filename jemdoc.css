@@ -777,6 +777,21 @@ li.notice a:hover {
   margin-bottom: 0.7em;
 }
 
+/* 会议等级标签：紧跟 .pub-venue，描边款与实心会议徽章成对出现。
+   padding 比 .pub-venue 少 1px、补 1px 边框，两者外框等高；
+   用 --accent-deep（白底 5.43:1）而非 --accent（4.26:1，小字不达标）*/
+.pub-rank {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 8px;
+  border: 1px solid var(--accent-deep);
+  border-radius: 3px;
+  color: var(--accent-deep);
+  font-size: 0.74rem;
+  font-weight: bold;
+  letter-spacing: 0.07em;
+}
+
 .pub-abstract {
   margin: 0.7em 0;
   color: var(--ink-soft);
