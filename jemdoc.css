@@ -480,9 +480,9 @@ td.profile-text {
 }
 
 .chinese-name {
-    display: block;
+    display: inline;
     font-family: var(--font-kai);
-    font-size: 1.85rem;
+    font-size: 2.2rem;
     font-weight: bold;
     line-height: 1.15;
     letter-spacing: 0.06em;
@@ -490,11 +490,11 @@ td.profile-text {
 }
 
 .english-name {
-    display: block;
+    display: inline;
     font-family: var(--font-serif);
     font-size: 1.15rem;
     color: var(--ink-soft);
-    margin-top: 0.1em;
+    margin-left: 0.5em;
     letter-spacing: 0.01em;
 }
 
@@ -509,26 +509,28 @@ td.profile-text {
     font-size: 1.2rem;
     color: var(--accent-deep);
     font-weight: bold;
-    margin-top: 0.45em;
+    margin-top: 0.8em;
 }
 
 .affiliation {
     display: block;
     color: var(--ink-soft);
-    line-height: 1.55;
+    line-height: 1.6;
+    margin-top: 0.3em;
 }
 
 /* 联系方式：标签对齐的两列观感 */
 .contact-info {
-    margin-top: 0.6em;
-    padding-top: 0.5em;
+    margin-top: 1em;
+    padding-top: 0.6em;
     border-top: 1px solid var(--rule);
     font-size: 0.9rem;
-    line-height: 1.55;
+    line-height: 1.6;
 }
 
 .contact-item {
     color: var(--ink-soft);
+    margin-bottom: 0.4em;
 }
 
 .contact-label {
