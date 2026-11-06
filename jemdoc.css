@@ -26,9 +26,8 @@
   /* News 约 10 条：单行条目 = line-height 1.5em + margin-bottom 0.5em = 2em，
      实际内容约 1.4 行/条 → 10 × 1.4 × 1.5em + 10 × 0.5em = 26em，再加面板上下 padding 2em */
   --news-max-h: 28em;
-  /* Publications 约 6 篇：每篇 = max(图片区 min-height 200px, 文字区)
-     + padding 44px + border 1px + margin 6.4px，按当前摘要长度推算约 369~439px/篇 */
-  --pub-max-h: 3000px;
+  /* Publications 6 篇：前3篇 featured 约 350px/篇，后3篇 compact 约 60px/篇，共约 1230px */
+  --pub-max-h: 1400px;
 
   --font-serif: Georgia, "Iowan Old Style", Palatino, "Palatino Linotype",
     "Times New Roman", "Songti SC", "Source Han Serif SC", serif;
@@ -450,7 +449,7 @@ table.imgtable, table.imgtable td {
 /* ===== 页面顶部个人信息区 ===== */
 table.imgtable {
     width: 100%;
-    margin-bottom: 1.4em;
+    margin-bottom: 0.8em;
 }
 
 table.imgtable > tbody > tr > td {
@@ -462,40 +461,40 @@ table.imgtable > tbody > tr > td {
    1) 不写的话 table auto 布局会把富余宽度摊给人像列，在人像与文字间拉出空白
    2) 写固定 px 则在 769–1000px 视口下三列总宽超出可用宽度而溢出 */
 table.imgtable > tbody > tr > td:first-child {
-    width: 34%;
+    width: 28%;
 }
 
 /* 人像 */
 img.portrait {
     width: 100%;
-    max-width: 310px;
+    max-width: 240px;
     height: auto;
     border-radius: 6px;
     border: 1px solid var(--rule);
-    box-shadow: 0 6px 20px rgba(23, 43, 69, 0.12);
+    box-shadow: 0 4px 14px rgba(23, 43, 69, 0.10);
 }
 
 td.profile-text {
-    padding-left: 34px !important;
-    padding-right: 30px !important;
+    padding-left: 48px !important;
+    padding-right: 24px !important;
 }
 
 .chinese-name {
     display: block;
     font-family: var(--font-kai);
-    font-size: 2.5rem;
+    font-size: 1.85rem;
     font-weight: bold;
     line-height: 1.15;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     color: var(--ink);
 }
 
 .english-name {
     display: block;
     font-family: var(--font-serif);
-    font-size: 1.35rem;
+    font-size: 1.15rem;
     color: var(--ink-soft);
-    margin-top: 0.15em;
+    margin-top: 0.1em;
     letter-spacing: 0.01em;
 }
 
@@ -507,10 +506,10 @@ td.profile-text {
 .job-title {
     display: block;
     font-family: var(--font-serif);
-    font-size: 1.08rem;
+    font-size: 1.2rem;
     color: var(--accent-deep);
     font-weight: bold;
-    margin-top: 0.9em;
+    margin-top: 0.45em;
 }
 
 .affiliation {
@@ -521,11 +520,11 @@ td.profile-text {
 
 /* 联系方式：标签对齐的两列观感 */
 .contact-info {
-    margin-top: 1.1em;
-    padding-top: 0.9em;
+    margin-top: 0.6em;
+    padding-top: 0.5em;
     border-top: 1px solid var(--rule);
-    font-size: 0.94rem;
-    line-height: 1.65;
+    font-size: 0.9rem;
+    line-height: 1.55;
 }
 
 .contact-item {
@@ -575,14 +574,14 @@ td.logo-cell img {
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-/* 百分比宽度让 logo 随列宽缩放，与同样按百分比缩放的人像保持等高：
+/* 百分比宽度让 logo 随列宽缩放，控制在人像高度以内：
    ali.svg 真实 122×79，nju.jpg 真实 336×421 */
 td.logo-cell img.logo-ali {
-    width: 92%;
+    width: 70%;
 }
 
 td.logo-cell img.logo-nju {
-    width: 66%;
+    width: 48%;
 }
 
 td.logo-cell a:hover img {
@@ -595,15 +594,42 @@ td.logo-cell a:hover img {
 /* ===== 论文条目 ===== */
 .publication-item {
   display: flex;
-  /* 必须是 stretch（不能用 flex-start）：图片列高度要被拉伸到与文字列等高，
-     下方 .pub-img-container 的 align-items: center 才能真正把图纵向居中；
-     图高 134~227px 而文字区 318~388px，flex-start 下图会明显偏上 */
   align-items: stretch;
   margin-bottom: 0.4rem;
   padding: 22px 14px;
   border-bottom: 1px solid var(--rule-soft);
   border-radius: 5px;
   transition: background-color 0.22s ease;
+}
+
+/* Featured publications (前3篇详细展示) */
+.publication-item.featured {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
+}
+
+.publication-item.featured:hover {
+  background-color: var(--tint);
+  border-color: var(--rule-soft);
+}
+
+/* Featured: designation 样式同 pub-venue */
+.publication-item.featured .pub-designation {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 9px;
+  border-radius: 3px;
+  background-color: var(--accent-soft);
+  color: white;
+  font-size: 0.74rem;
+  font-weight: bold;
+  letter-spacing: 0.07em;
+  vertical-align: middle;
+}
+
+.publication-item.featured .pub-designation:empty {
+  display: none;
 }
 
 .publication-item:hover {
@@ -629,6 +655,33 @@ td.logo-cell a:hover img {
   text-align: left;
   padding-left: 0;
   min-width: 0;
+}
+
+/* Featured: 保持原有渲染顺序 */
+.publication-item.featured .pub-info-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.35em;
+}
+.publication-item.featured .pub-info-container > .pub-venue { order: 1; }
+.publication-item.featured .pub-info-container > .pub-designation { order: 2; }
+.publication-item.featured .pub-info-container > .pub-rank { order: 3; }
+.publication-item.featured .pub-info-container > .pub-title { order: 4; }
+.publication-item.featured .pub-info-container > .pub-authors { order: 5; }
+.publication-item.featured .pub-info-container > .pub-abstract { order: 6; }
+.publication-item.featured .pub-info-container > .pub-links { order: 7; }
+
+/* 非 Featured: inline 流式布局 */
+.publication-item:not(.featured) .pub-info-container {
+  display: inline;
+}
+.publication-item:not(.featured) .pub-info-container > * {
+  display: inline;
+  margin-right: 0.35em;
+}
+.publication-item:not(.featured) .pub-info-container > *:last-child {
+  margin-right: 0;
 }
 
 .publication-item img {
@@ -667,6 +720,76 @@ ul.content-list li::marker {
   color: var(--accent-soft);
 }
 
+/* Awards: 奖牌图标 */
+ul.awards-list {
+  list-style: none;
+  padding-left: 0em;
+}
+ul.awards-list li {
+  position: relative;
+  padding-left: 1.8em;
+}
+ul.awards-list li::before {
+  content: "";
+  position: absolute;
+  left: 1px;
+  top: 0.15em;
+  width: 4px;
+  height: 5px;
+  border-left: 2px solid #333;
+  border-right: 2px solid #333;
+}
+ul.awards-list li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #333;
+  border-radius: 50%;
+}
+
+/* Competitions: 三角旗图标 */
+ul.competitions-list {
+  list-style: none;
+  padding-left: 0em;
+}
+ul.competitions-list li {
+  position: relative;
+  padding-left: 1.8em;
+}
+ul.competitions-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.25em;
+  width: 14px;
+  height: 14px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3 1v12' stroke='%23333' stroke-width='1.5'/%3E%3Cpath d='M3 2l8 3-8 3z' fill='%23333'/%3E%3C/svg%3E") no-repeat center;
+  background-size: contain;
+}
+
+/* Services: 人物图标 */
+ul.services-list {
+  list-style: none;
+  padding-left: 0em;
+}
+ul.services-list li {
+  position: relative;
+  padding-left: 1.8em;
+}
+ul.services-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.25em;
+  width: 14px;
+  height: 14px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Ccircle cx='7' cy='4' r='2.5' fill='none' stroke='%23333' stroke-width='1.2'/%3E%3Cpath d='M3 13c0-2.5 1.8-4 4-4s4 1.5 4 4' fill='none' stroke='%23333' stroke-width='1.2'/%3E%3C/svg%3E") no-repeat center;
+  background-size: contain;
+}
+
 /* 条目会折行的列表，项间留白更大 */
 ul.content-list.spaced li {
   margin-bottom: 0.5em;
@@ -703,8 +826,10 @@ ul.content-list.spaced li {
   background: var(--accent-soft);
 }
 
+/* Publications: 取消滚动，全部渲染 */
 .pub-scroll {
-  max-height: var(--pub-max-h);
+  max-height: none;
+  overflow-y: visible;
 }
 
 /* News：只保留左侧强调竖条，不画成封闭边框
@@ -796,6 +921,7 @@ li.notice a:hover {
   margin: 0.7em 0;
   color: var(--ink-soft);
   line-height: 1.45;
+  font-size: 0.92rem;
 }
 
 .pub-links {
@@ -821,6 +947,181 @@ li.notice a:hover {
   border-color: var(--accent-deep);
   color: #fff;
   text-decoration: none;
+}
+
+/* ===== 非 Featured 论文：参考 [ISWC'24] Authors. Title. In Proc. of ... [links] 格式 ===== */
+.publication-item:not(.featured) {
+  display: flex;
+  align-items: baseline;
+  padding: 5px 14px 5px 1em;
+  margin-bottom: 0;
+  border-bottom: none;
+  border-radius: 0;
+  background: none;
+  line-height: 1.65;
+}
+
+/* 隐藏图片列 */
+.publication-item:not(.featured) .pub-img-container {
+  display: none;
+}
+
+/* 隐藏摘要 */
+.publication-item:not(.featured) .pub-abstract {
+  display: none;
+}
+
+/* 缩略模式：rank 放在最后，括号加粗 */
+.publication-item:not(.featured) .pub-rank {
+  display: inline;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 0;
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: bold;
+  letter-spacing: 0;
+}
+
+.publication-item:not(.featured) .pub-rank::before {
+  content: " (";
+}
+
+.publication-item:not(.featured) .pub-rank::after {
+  content: ")";
+}
+
+/* 缩略模式：designation 在末尾以 (Findings) 形式展示 */
+.publication-item:not(.featured) .pub-designation {
+  display: inline;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+.publication-item:not(.featured) .pub-designation:not(:empty)::before {
+  content: " (";
+}
+
+.publication-item:not(.featured) .pub-designation:not(:empty)::after {
+  content: ")";
+}
+
+.publication-item:not(.featured) .pub-designation:empty {
+  display: none;
+}
+
+/* 会议缩写：📄 [CONF'YY] 格式 */
+.publication-item:not(.featured) .pub-venue {
+  display: inline;
+  background: none;
+  color: var(--ink);
+  padding: 0;
+  font-size: 0.95rem;
+  font-weight: bold;
+  letter-spacing: 0;
+  text-transform: none;
+  margin-bottom: 0;
+  font-style: normal;
+}
+
+.publication-item:not(.featured) .pub-venue::before {
+  content: "[";
+  display: inline;
+  padding-left: 20px;
+  margin-left: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 18'%3E%3Cpath d='M2 0h8l4 4v12a2 2 0 01-2 2H2a2 2 0 01-2-2V2a2 2 0 012-2z' fill='%23333'/%3E%3Cpath d='M10 0v4h4' fill='none' stroke='white' stroke-width='1.5'/%3E%3Cline x1='3' y1='7' x2='13' y2='7' stroke='white' stroke-width='1.2'/%3E%3Cline x1='3' y1='10' x2='13' y2='10' stroke='white' stroke-width='1.2'/%3E%3Cline x1='3' y1='13' x2='10' y2='13' stroke='white' stroke-width='1.2'/%3E%3C/svg%3E") no-repeat left center;
+  background-size: 14px 16px;
+}
+
+.publication-item:not(.featured) .pub-venue::after {
+  content: "]";
+}
+
+/* 标题：斜体 + 下划线 */
+.publication-item:not(.featured) .pub-title {
+  display: inline;
+  font-size: 0.95rem;
+  margin-bottom: 0;
+  color: var(--accent-deep);
+  text-decoration: underline;
+  text-decoration-color: rgba(63, 107, 166, 0.3);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.pub-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pub-title-link:hover {
+  color: var(--accent-deep);
+}
+
+.publication-item:not(.featured) .pub-title-link {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.publication-item:not(.featured) .pub-title-link:hover {
+  color: var(--accent-deep);
+  text-decoration-color: var(--accent-deep);
+}
+
+.publication-item:not(.featured) .pub-title::after {
+  content: ".";
+  color: var(--ink);
+  text-decoration: none;
+  font-style: normal;
+}
+
+/* 作者 */
+.publication-item:not(.featured) .pub-authors {
+  display: inline;
+  margin-bottom: 0;
+  font-size: 0.92rem;
+  font-style: normal;
+}
+
+.publication-item:not(.featured) .pub-authors::after {
+  content: ".";
+  color: var(--ink);
+}
+
+/* 链接：[code] 方括号格式 */
+.publication-item:not(.featured) .pub-links {
+  display: inline;
+  margin-top: 0;
+}
+
+.publication-item:not(.featured) .pub-link-btn {
+  display: inline;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.88rem;
+  margin-right: 0;
+  border-radius: 0;
+  text-decoration: none;
+  color: var(--link);
+  font-style: normal;
+}
+
+.publication-item:not(.featured) .pub-link-btn::before {
+  content: "[";
+  color: var(--ink);
+}
+
+.publication-item:not(.featured) .pub-link-btn::after {
+  content: "]";
+  color: var(--ink);
+}
+
+.publication-item:not(.featured) .pub-link-btn:hover {
+  background: none;
+  color: var(--link-hover);
+  text-decoration: underline;
 }
 
 /* 响应式设计 */
@@ -905,11 +1206,11 @@ li.notice a:hover {
   /* 窄屏下 <p> 是 inline-block（宽度由内容决定），
      百分比宽度在这种收缩容器里无法稳定解析，改回固定值 */
   td.logo-cell img.logo-ali {
-    width: 132px;
+    width: 100px;
   }
 
   td.logo-cell img.logo-nju {
-    width: 94px;
+    width: 70px;
   }
 
   td.logo-cell br {
@@ -917,7 +1218,7 @@ li.notice a:hover {
   }
 
   .chinese-name {
-    font-size: 2.1rem;
+    font-size: 1.6rem;
   }
 
   div#toptitle h1, #layout-content div#toptitle h1 {
