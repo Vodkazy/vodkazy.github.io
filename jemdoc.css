@@ -593,6 +593,14 @@ td.logo-cell a:hover img {
 
 /* 列表默认间距交由 .content-list 控制 */
 
+.pub-note {
+  font-size: 0.48em;
+  font-weight: normal;
+  color: #999;
+  margin-left: 0.5em;
+  letter-spacing: 0.02em;
+}
+
 /* ===== 论文条目 ===== */
 .publication-item {
   display: flex;
@@ -839,7 +847,8 @@ ul.content-list.spaced li {
    同时保持项目符号与其他列表（1.2em + 1.5em）相同的缩进
    不写 border-radius：只剩一条直线时圆角会把竖条两端削细 */
 ul.content-list.news-panel {
-  max-height: var(--news-max-h);
+  max-height: none;
+  overflow-y: visible;
   margin-left: 0;
   padding: 16px 18px 16px 2.7em;
   border-left: 3px solid var(--accent);
